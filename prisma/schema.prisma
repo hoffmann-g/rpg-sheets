@@ -14,16 +14,82 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
+model Sheet {
     id        Int      @id @default(autoincrement())
+    userId       String @unique
+    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    // Info
     name      String
+    player    String
+    sex       String
+    life      Int
+    sanity    Int
+    perception Int
+    
+    // State
+    dying Boolean
+    unconscious Boolean
+    
+    // Attributes
+    for Int
+    con Int
+    agi Int
+    int Int
+    pre Int
+
+    // Skills
+    burglary Int
+    acrobatics Int
+    athletics Int
+    arts Int
+    animal_handling Int
+    fighting Int
+    stealth Int
+    defense Int
+    search Int
+    crime Int
+    aim Int
+    fortitude Int
+    science Int
+    deception Int
+    reflexes Int
+    survival Int
+    driving Int
+    initiative Int
+    intuition Int
+    intimidation Int
+    medicine Int
+    persuasion Int
+    religion Int
+    technologies Int
+
+    // Inventory
+    hand_slot1 String
+    hand_slot2 String
+    pocket_slot1 String
+    pocket_slot2 String
+    backpack_slot1 String
+    backpack_slot2 String
+    backpack_slot3 String
+    backpack_slot4 String
+    backpack_slot5 String
+    backpack_slot6 String
+    backpack_slot7 String
+    backpack_slot8 String
+    backpack_slot9 String
+    backpack_slot10 String
+    backpack_slot11 String
+    backpack_slot12 String
+
+    // Past
+    past String
+
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
-
     @@index([name])
+	@@map("Sheet")
 }
 
 // Necessary for Next auth
@@ -62,7 +128,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
-    posts         Post[]
+    Sheet         Sheet?
 }
 
 model VerificationToken {
